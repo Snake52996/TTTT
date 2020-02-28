@@ -1,0 +1,30 @@
+{
+	"default": 1,
+	"settings": [
+		{
+			"name": "default",
+			"translator": {
+				"url": "translate.google.cn",
+				"delay_milliseconds": 700
+			},
+			"IO": {
+				"input_file": {
+					"path": null,
+					"encode": "utf-8",
+					"language": "auto"
+				},
+				"output_file": {
+					"path": null,
+					"encode": "utf-8"
+				}
+			},
+			"translation": {
+				"steps": [
+					"ja",
+					"zh-cn"
+				],
+				"rounds": 0
+			}
+		}
+	]
+}
