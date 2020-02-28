@@ -21,7 +21,7 @@ def getNumber(hint, default_value_hint, default_value):
         return default_value
     else:
         return stringToInt(temp_input)
-def createNewSetting():
+def createNewSetting(a):
     new_setting = dict(a["settings"][0])
     new_setting["translator"]["url"] = getString(
         "What server url would you like to use?",
@@ -86,27 +86,29 @@ def createNewSetting():
     finally:
         if file:
             file.close()
-try:
-    file = open("settings.json", "r")
-    if file.readable() == False:
-        print("Can't read setting file. Terminate.")
-        exit()
-    a = json.loads(file.read())
-finally:
-    if file:
-        file.close()
-current_index = 0
-for setting in a["settings"]:
-    print("%d. %s%s" % (current_index, setting["name"], "(DEFAULT)" if(current_index == a["default"]) else ""))
-    current_index += 1
-print("%d. CREATE A NEW SETTING" % current_index)
-selection = input("Please select a setting by its index, or <ENTER> for default: ")
-if selection == "":
-    selected_setting = a["default"]
-else:
-    selected_setting = stringToInt(selection)
-if selected_setting > current_index or selected_setting < 0:
-    print("Invalid index. Use default.")
-    selected_setting = a["default"]
-elif selected_setting == current_index:
-    createNewSetting()
+def getSetting():
+    try:
+        file = open("settings.json", "r")
+        if file.readable() == False:
+            print("Can't read setting file. Terminate.")
+            exit()
+        a = json.loads(file.read())
+    finally:
+        if file:
+            file.close()
+    current_index = 0
+    for setting in a["settings"]:
+        print("%d. %s%s" % (current_index, setting["name"], "(DEFAULT)" if(current_index == a["default"]) else ""))
+        current_index += 1
+    print("%d. CREATE A NEW SETTING" % current_index)
+    selection = input("Please select a setting by its index, or <ENTER> for default: ")
+    if selection == "":
+        selected_setting = a["default"]
+    else:
+        selected_setting = stringToInt(selection)
+    if selected_setting > current_index or selected_setting < 0:
+        print("Invalid index. Use default.")
+        selected_setting = a["default"]
+    elif selected_setting == current_index:
+        createNewSetting(a)
+    return a["settings"][selected_setting]
