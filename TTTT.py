@@ -35,25 +35,28 @@ def operateSentense(sentense):
 					step_index = 0
 	else:
 		print("Invalid paramater.")
-if setting["IO"]["input_file"]["path"] == None:
-	input_file_path = input("Give me file: ")
-else:
-	input_file_path = setting["input_file"]["path"]
-if setting["IO"]["output_file"]["path"] == None:
-	output_file_path = input_file_path + ".out"
-else:
-	output_file_path = setting["output_file"]["path"]
 try:
-	input_file = open(input_file_path, 'r', encoding=setting["IO"]["input_file"]["encode"])
-	output_file = open(output_file_path, "w", encoding=setting["IO"]["input_file"]["encode"])
-	while True:
-		text_line = input_file.readline().strip()
-		if text_line:
-			output_file.write(operateSentense(text_line) + "\n")
-		else:
-			break
+    if setting["IO"]["input_file"]["path"] == None:
+        input_file_path = input("Give me file: ")
+    else:
+        input_file_path = setting["input_file"]["path"]
+    if setting["IO"]["output_file"]["path"] == None:
+        output_file_path = input_file_path + ".out"
+    else:
+        output_file_path = setting["output_file"]["path"]
+    try:
+        input_file = open(input_file_path, 'r', encoding=setting["IO"]["input_file"]["encode"])
+        output_file = open(output_file_path, "w", encoding=setting["IO"]["input_file"]["encode"])
+        while True:
+            text_line = input_file.readline().strip()
+            if text_line:
+                output_file.write(operateSentense(text_line) + "\n")
+            else:
+                break
+    finally:
+        if input_file:
+            input_file.close()
+        if output_file:
+            output_file.close()
 finally:
-	if input_file:
-		input_file.close()
-	if output_file:
-		output_file.close()
+    os.system("pause")
